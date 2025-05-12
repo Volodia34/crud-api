@@ -1,12 +1,12 @@
 import { createServer } from 'http';
 import { userRoutes } from './routes/userRoutes';
-import { PORT } from './config';
+import {PORT} from "./config";
 
-export const startServer = () => {
+export const startServer = (port: number) => {
     const server = createServer(userRoutes);
     return new Promise((resolve) => {
-        server.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
+        server.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
             resolve(server);
         });
     });
@@ -21,6 +21,10 @@ export const stopServer = (server: ReturnType<typeof createServer>) => {
     });
 };
 
-startServer().catch((err) => {
-    console.error('Error starting the server:', err);
+
+
+startServer(PORT).then(() => {
+    console.log(`Development server is running on http://localhost:${PORT}`);
+}).catch((err) => {
+    console.error('Failed to start the server:', err);
 });

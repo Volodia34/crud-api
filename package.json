@@ -5,6 +5,7 @@
   "scripts": {
     "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "start:prod": "npm run build && node dist/server.js",
+    "start:multi": "node ./src/cluster.js",
     "build": "tsc",
     "test": "jest"
   },

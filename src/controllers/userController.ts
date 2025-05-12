@@ -1,5 +1,5 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import {getUsers, createUser, updateUser} from '../services/userService';
+import {getUsers, createUser, updateUser, deleteUser} from '../services/userService';
 
 export const getUsersController = (req: IncomingMessage, res: ServerResponse): void => {
     res.writeHead(200, {'Content-Type': 'application/json'});
@@ -63,4 +63,18 @@ export const updateUserController = (req: IncomingMessage, res: ServerResponse, 
             res.end(JSON.stringify({ message: 'Invalid JSON body' }));
         }
     });
+};
+
+
+
+export const deleteUserController = (req: IncomingMessage, res: ServerResponse, userId: string): void => {
+    const success = deleteUser(userId);
+    if (!success) {
+        res.writeHead(404, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ message: 'User not found' }));
+        return;
+    }
+
+    res.writeHead(204, { 'Content-Type': 'application/json' });
+    res.end();
 };

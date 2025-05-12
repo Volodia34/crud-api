@@ -1,5 +1,10 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { getUsersController, createUserController, updateUserController } from '../controllers/userController';
+import {
+    getUsersController,
+    createUserController,
+    updateUserController,
+    deleteUserController
+} from '../controllers/userController';
 
 export const userRoutes = (req: IncomingMessage, res: ServerResponse): void => {
     const { method, url } = req;
@@ -18,6 +23,11 @@ export const userRoutes = (req: IncomingMessage, res: ServerResponse): void => {
 
     if (urlParts?.[1] === 'api' && urlParts?.[2] === 'users' && method === 'PUT' && userId) {
         updateUserController(req, res, userId);
+        return;
+    }
+
+    if (urlParts?.[1] === 'api' && urlParts?.[2] === 'users' && method === 'DELETE' && userId) {
+        deleteUserController(req, res, userId);
         return;
     }
 

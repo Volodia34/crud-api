@@ -23,3 +23,11 @@ export const updateUser = (userId: string, username: string, age: number, hobbie
     users[index] = { id: userId, username, age, hobbies };
     return users[index];
 };
+
+export const deleteUser = (userId: string): boolean => {
+    const index = users.findIndex(user => user.id === userId);
+    if (index === -1) return false;
+
+    users.splice(index, 1);
+    return true;
+};

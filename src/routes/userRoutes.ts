@@ -1,8 +1,10 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { getUsersController, createUserController } from '../controllers/userController';
+import { getUsersController, createUserController, updateUserController } from '../controllers/userController';
 
 export const userRoutes = (req: IncomingMessage, res: ServerResponse): void => {
     const { method, url } = req;
+    const urlParts = url?.split('/');
+    const userId = urlParts?.[3];
 
     if (url === '/api/users' && method === 'GET') {
         getUsersController(req, res);
@@ -11,6 +13,11 @@ export const userRoutes = (req: IncomingMessage, res: ServerResponse): void => {
 
     if (url === '/api/users' && method === 'POST') {
         createUserController(req, res);
+        return;
+    }
+
+    if (urlParts?.[1] === 'api' && urlParts?.[2] === 'users' && method === 'PUT' && userId) {
+        updateUserController(req, res, userId);
         return;
     }
 

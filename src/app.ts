@@ -1,16 +1,8 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import { createServer } from 'http';
+import { userRoutes } from './routes/userRoutes';
 
-export const requestHandler = (req: IncomingMessage, res: ServerResponse): void => {
-    const { method, url } = req;
+const server = createServer(userRoutes);
 
-
-    if (url === '/api/health' && method === 'GET') {
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ status: 'OK' }));
-        return;
-    }
-
-
-    res.writeHead(404, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ message: 'Not Found' }));
-};
+server.listen(3000, () => {
+    console.log('Server is running on port 3000');
+});

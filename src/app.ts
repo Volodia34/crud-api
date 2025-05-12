@@ -22,9 +22,3 @@ export const stopServer = (server: ReturnType<typeof createServer>) => {
 };
 
 
-
-startServer(PORT).then(() => {
-    console.log(`Development server is running on http://localhost:${PORT}`);
-}).catch((err) => {
-    console.error('Failed to start the server:', err);
-});
